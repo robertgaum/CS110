@@ -7,4 +7,4 @@ Number1 = int(Number1str)
 Number2str=input("Enter another Number:")
 Number2 = int(Number2str)
 print (f"The product of those numbers is: {Number1 * Number2}!")
-#this took me an hour to figure out D:
+#this took me an hour to figure out D: 
