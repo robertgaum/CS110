@@ -34,7 +34,7 @@ h,i = 2, 4
 print(h/i)
 h,i = 5, 2
 print(h%i)
-h,i = 5, 3
+h,i = 5, 3 
 print(h%i)
 h,i = 6, 2
 print(h%i)
