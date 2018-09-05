@@ -67,4 +67,4 @@ print (id (x))
 y = 25
 print (id (y))
 
-print ("The way python manages its memory is that it uses the same id for each variable that is assigned to an identical number.")
+print ("The way python manages its memory is that it uses the same id for each variable that is assigned to an identical number.") 
