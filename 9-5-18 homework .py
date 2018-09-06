@@ -17,4 +17,4 @@ print ('{0} to the power of {1} is {2}'.format(x,y,z))
 print ('''An object in python is a veriable that has uniqe attributes and methods 
 that can be preformed with it. For example, the first number that you intered 
 had the attribute of a value and was abel to be changed useing a mathamatical
- method. ''')
+ method. ''') 
