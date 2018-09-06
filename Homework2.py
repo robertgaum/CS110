@@ -33,6 +33,6 @@ print (type(Profile['Age']))
 print (f'Hello, {Profile_FirstName} {Profile_LastName}! Nice weather today, no?')
 
 #Lastly, I print out the result of the Profile_FirstNumber to the power of Profile_SecondNumber
-print (int(Profile_FirstNumber)^int(Profile_SecondNumber))
+print (int(Profile_FirstNumber)^int(Profile_SecondNumber)) 
 
 print ('Python is an object-oriented programming language.An object is anything that has an identity, type, and a value. In other words, everything in python is an object.')
