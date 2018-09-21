@@ -1,4 +1,4 @@
-#First, I define the dictionary
+#First, I define the dictionary 
 Dict = ["Integer", "String", "Boolean","Int","Str","Bool"]
 
 #Next, I prompt the user to enter their pick out of the three options
