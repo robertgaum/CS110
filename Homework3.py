@@ -16,4 +16,4 @@ print (List)
 
 #lastly, I use the join method to join back the list back into a sentence, but this time it has commas instead of spaces.
 Phrase5 = ','.join(List)
-print (Phrase5)
+print (Phrase5) 
