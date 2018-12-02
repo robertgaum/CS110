@@ -93,3 +93,20 @@ def meterresistance(point1, point2):
 ###################################################################
 
 def draw():
+    import turtle
+    turtle.forward(200)
+    turtle.left(90)
+    turtle.forward(50)
+    turtle.left(90)
+    for i in range(1, 5):
+        turtle.forward(70)
+        turtle.penup()
+        turtle.forward(10)
+        turtle.pendown()
+    turtle.forward(70)
+    turtle.left(90)
+    turtle.forward(50)
+    turtle.left(90)
+    turtle.forward(300)
+
+    turtle.exitonclick()
