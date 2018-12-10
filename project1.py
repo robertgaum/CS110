@@ -17,7 +17,7 @@ comp_5 = None
 
 continuity = None
 
-complist = [comp_1, comp_2, comp_3, comp_4, comp_5]
+thresholdlist = []
 
 #===============================================================================================================================================
 # each component is a subclass of the component class
@@ -28,15 +28,20 @@ class component:
         self.power = power
 class Wire(component):
     def drawcomp(self, x, y):
-        turtle.penup()
         turtle.goto(x, y)
-        turtle.foreward(40)
+        turtle.pendown()
+        turtle.setheading(180)
+        turtle.forward(40)
         
 class Battery(component):
     
     def gitvoltage(self):
-        voltage = float(input('battery voltage:'))
-        return voltage
+        try:
+            voltage = float(input('battery voltage:'))
+        except ValueError:
+            print('please enter a number')
+        else:
+            return voltage
 # each drawcomp function draws the component on the board
     def drawcomp(self, x, y):
         turtle.goto(x, y)
@@ -62,10 +67,13 @@ class Battery(component):
 class Resistor(component):
     
     def gitresistance(self):
-        resistance = float(input('resister resistance:'))
-        return resistance
+        try:
+            resistance = float(input('resister resistance:'))
+        except ValueError:
+            print('please enter a number')
+        else:
+            return resistance
     def drawcomp(self, x, y):
-        turtle.penup()
         turtle.goto(x, y)
         turtle.pendown()
         turtle.left(135)
@@ -84,14 +92,25 @@ class LightBulb(component):
         super().__init__(voltage, resistance, power)
     
     def getthreshold(self):
-        threshold = float(input('How much power is required to turn on the light?:'))
+        global thresholdlist
+        try:
+            threshold = float(input('How much power is required to turn on the light?:'))
+        except ValueError:
+            print('please enter a number')
+        else:
+            thresholdlist.append(threshold)
         return threshold
     def getlightstatus(self):
-        lightstatus = input('is the light on or off?:')
+        ans = ['on', 'off']
+        try:
+            lightstatus = input('is the light on or off?:').lower
+            lightstatus in ans
+        except Exception:
+            print('invalad input. please type on or off')
         return lightstatus
     def drawcomp(self, x, y):
-        turtle.penup()
-        turtle.goto(x, y - 10)
+        y = y - 10
+        turtle.goto(x, y)
         turtle.pendown()
         if lightstatus == 'off':
             turtle.fillcolor('white')
@@ -105,11 +124,16 @@ class Switch(component):
         super().__init__(voltage, resistance, power)
         
     def getstatus(self):
-        switchstatus = input('is the switch on or off?:')
+        ans = ['on', 'off']
+        try:
+            switchstatus = input('is the light on or off?:').lower
+            switchstatus in ans
+        except Exception:
+            print('invalad input. please type on or off')
         return switchstatus
     def drawcomp(self, x, y):
-        turtle.penup()
-        turtle.goto(x - 40, y)
+        x = x - 40
+        turtle.goto(x, y)
         turtle.pendown()
         turtle.left(90)
         turtle.forward(10)
@@ -178,7 +202,13 @@ def meterresistance(point1, point2):
     return meterresistance
     
 ###################################################################
-
+def thresholdcheck(volts):
+    global thresholdlist
+    for t in thresholdlist:
+        if t > volts:
+            return False
+        else:
+            return True
 #===============================================================================================================================================
 def listcheck(CompType):
     try:
@@ -389,11 +419,7 @@ def GiveType():
                 PrintType(CompNum,CompType)
         if CompType == TypeList[0]:
             continuity = 1
-        complist.append(comp_1)
-        complist.append(comp_2)
-        complist.append(comp_3)
-        complist.append(comp_4)
-        complist.append(comp_5)
+        
     return 
 
 
@@ -446,35 +472,47 @@ def draw():
     turtle.forward(50)
     turtle.left(90)
     turtle.forward(320)
-    turtle.exitonclick()
-
+    turtle.penup()
 
 
 #####################################################################
 def main():
     draw()
-    Start()
-    print(comp_1.voltage)
-    global point1
-    global point2
-    point1 = int(input('where do you want to place the first node? comp#:'))
-    point2 = int(input('second node? comp#:'))
-    if continuity == 1:
-        print('0-Volts, 0-Amps, 0-Ohms, 0-Watts')
-    else:
-        volts = metervoltage(point1, point2)
-        ohms = meterresistance(point1, point2)
-        amps = volts / ohms
+    again = 'yes'
+    while again is 'yes':
+        Start()
+        global point1
+        global point2
+        try:
+           point1 = int(input('where do you want to place the first node? comp#:'))
+        except ValueError:
+            print('invalad input')
+        try:
+            point2 = int(input('second node? comp#:'))
+        except ValueError:
+            print('invalad input')
+        if continuity == 1:
+            print('0-Volts, 0-Amps, 0-Ohms, 0-Watts')
+        else:
+            volts = metervoltage(point1, point2)
+            ohms = meterresistance(point1, point2)
+        if thresholdcheck(volts) is False:
+            print('0-Volts, 0-Amps, 0-Ohms, 0-Watts. voltage did not exceed light threshold')        
+        if ohms != 0:
+            amps = volts / ohms
+        else:
+            amps = 0
         watts = volts * amps
         print(f'{volts}-Volts, {amps}-Amps, {ohms}-Ohms, {watts}-Watts')
 
 
-    comp_1.drawcomp(190.00,50.00)
-    comp_2.drawcomp(90.00,50.00)
-    comp_3.drawcomp(-10.00,50.00)
-    comp_4.drawcomp(-110.00,50.00)
-    comp_5.drawcomp(-210.00,50.00)
-    
+        comp_1.drawcomp(190,50)
+        comp_2.drawcomp(90,50)
+        comp_3.drawcomp(-10,50)
+        comp_4.drawcomp(-110,50)
+        comp_5.drawcomp(-210,50)
+        again = input('would you like to restart?')
+    turtle.exitonclick()
 
 
 if __name__ == '__main__':
